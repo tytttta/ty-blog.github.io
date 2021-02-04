@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/ty-blog.github.io/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ty-blog.github.io/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ty-blog.github.io/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ty-blog.github.io/images/logo.svg" color="#222">
+  <link rel="alternate" href="/ty-blog.github.io/atom.xml" title="Hexo" type="application/atom+xml">
+
+<link rel="stylesheet" href="/ty-blog.github.io/css/main.css">
+
+
+<link rel="stylesheet" href="/ty-blog.github.io/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/ty-blog.github.io/',
+    scheme: 'Muse',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="使用GitHub+Hexo搭建个人博客初次使用GitHub + Hexo 搭建个人博客，中间遇到一些问题，记下，以备后续需要。效果展示： ty的博客[https:&#x2F;&#x2F;tytttta.github.io&#x2F;ty-blog.github.io&#x2F;] 一 环境准备主要包括 安装git工具，搭建Node环境，安装Hexo工具，，注册git账号 1.1 安装git工具Git是目前世界上最流行的分布式版本控制系统">
+<meta name="keywords" content="Hexo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用GitHub+Hexo搭建个人博客">
+<meta property="og:url" content="https:&#x2F;&#x2F;tytttta.github.io&#x2F;ty-blog.github.io&#x2F;2019&#x2F;11&#x2F;21&#x2F;%E4%BD%BF%E7%94%A8GitHub-Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2&#x2F;index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="使用GitHub+Hexo搭建个人博客初次使用GitHub + Hexo 搭建个人博客，中间遇到一些问题，记下，以备后续需要。效果展示： ty的博客[https:&#x2F;&#x2F;tytttta.github.io&#x2F;ty-blog.github.io&#x2F;] 一 环境准备主要包括 安装git工具，搭建Node环境，安装Hexo工具，，注册git账号 1.1 安装git工具Git是目前世界上最流行的分布式版本控制系统">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https:&#x2F;&#x2F;tytttta.github.io&#x2F;ty-blog.github.io&#x2F;ty-blog.github.io&#x2F;2019&#x2F;11&#x2F;21&#x2F;%E4%BD%BF%E7%94%A8GitHub-Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2&#x2F;githubpages.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;tytttta.github.io&#x2F;ty-blog.github.io&#x2F;ty-blog.github.io&#x2F;2019&#x2F;11&#x2F;21&#x2F;%E4%BD%BF%E7%94%A8GitHub-Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2&#x2F;githubpages.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;tytttta.github.io&#x2F;ty-blog.github.io&#x2F;ty-blog.github.io&#x2F;2019&#x2F;11&#x2F;21&#x2F;%E4%BD%BF%E7%94%A8GitHub-Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2&#x2F;myhexo.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;tytttta.github.io&#x2F;ty-blog.github.io&#x2F;ty-blog.github.io&#x2F;2019&#x2F;11&#x2F;21&#x2F;%E4%BD%BF%E7%94%A8GitHub-Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2&#x2F;hexo.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;tytttta.github.io&#x2F;ty-blog.github.io&#x2F;ty-blog.github.io&#x2F;2019&#x2F;11&#x2F;21&#x2F;%E4%BD%BF%E7%94%A8GitHub-Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2&#x2F;cloneSSh.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;tytttta.github.io&#x2F;ty-blog.github.io&#x2F;ty-blog.github.io&#x2F;2019&#x2F;11&#x2F;21&#x2F;%E4%BD%BF%E7%94%A8GitHub-Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2&#x2F;%20config.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;tytttta.github.io&#x2F;ty-blog.github.io&#x2F;ty-blog.github.io&#x2F;2019&#x2F;11&#x2F;21&#x2F;%E4%BD%BF%E7%94%A8GitHub-Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2&#x2F;sshkey.png">
+<meta property="og:updated_time" content="2021-02-04T15:53:13.285Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;tytttta.github.io&#x2F;ty-blog.github.io&#x2F;ty-blog.github.io&#x2F;2019&#x2F;11&#x2F;21&#x2F;%E4%BD%BF%E7%94%A8GitHub-Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2&#x2F;githubpages.png">
+
+<link rel="canonical" href="https://tytttta.github.io/ty-blog.github.io/2019/11/21/%E4%BD%BF%E7%94%A8GitHub-Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>使用GitHub+Hexo搭建个人博客 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/ty-blog.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/ty-blog.github.io/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/ty-blog.github.io/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="https://tytttta.github.io/ty-blog.github.io/ty-blog.github.io/2019/11/21/%E4%BD%BF%E7%94%A8GitHub-Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/ty-blog.github.io/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          使用GitHub+Hexo搭建个人博客
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-11-21 21:46:11" itemprop="dateCreated datePublished" datetime="2019-11-21T21:46:11+08:00">2019-11-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-02-04 23:53:13" itemprop="dateModified" datetime="2021-02-04T23:53:13+08:00">2021-02-04</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="使用GitHub-Hexo搭建个人博客"><a href="#使用GitHub-Hexo搭建个人博客" class="headerlink" title="使用GitHub+Hexo搭建个人博客"></a>使用GitHub+Hexo搭建个人博客</h1><p>初次使用GitHub + Hexo 搭建个人博客，中间遇到一些问题，记下，以备后续需要。<br>效果展示： ty的博客[<a href="https://tytttta.github.io/ty-blog.github.io/]">https://tytttta.github.io/ty-blog.github.io/]</a></p>
+<h2 id="一-环境准备"><a href="#一-环境准备" class="headerlink" title="一 环境准备"></a>一 环境准备</h2><p>主要包括 安装git工具，搭建Node环境，安装Hexo工具，，注册git账号</p>
+<h3 id="1-1-安装git工具"><a href="#1-1-安装git工具" class="headerlink" title="1.1 安装git工具"></a>1.1 安装git工具</h3><p>Git是目前世界上最流行的分布式版本控制系统。使用Git可以帮助我们把本地的网页和文章等内容提交到Gihub上，实现同步。<br>下载地址：<a href="https://git-scm.com/downloads" target="_blank" rel="noopener">https://git-scm.com/downloads</a><br>测试安装：git - -version，查看显示版本号即成功。</p>
+<h3 id="1-2-搭建Node-js环境"><a href="#1-2-搭建Node-js环境" class="headerlink" title="1.2 搭建Node.js环境"></a>1.2 搭建Node.js环境</h3><p>一般常见的博客中会推荐在 下载地址：<a href="http://nodejs.cn/download" target="_blank" rel="noopener">http://nodejs.cn/download</a> 页面下载安装包，然后安装。但是通过这种方式安装，在1.3步会有一些小问题(会在1.3中阐述)，所以这里推荐使用NVM 即 node version manager安装，具体可见： <a href="https://github.com/nvm-sh/nvm#important-notes" target="_blank" rel="noopener">https://github.com/nvm-sh/nvm#important-notes</a></p>
+<p>本人使用的是git安装，由于本人电脑是mac系统，以下操作可能只适用于mac和Linux：</p>
+<ul>
+<li><p>将nvm克隆到本地目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">在任意目录中执行  cd ~/gitRes（其中gitRes为自己创建的目录）</span><br><span class="line"></span><br><span class="line">执行   git clone https://github.com/nvm-sh/nvm.git .nvm </span><br><span class="line">此时～/目录会存在.nvm目录，但由于.开头的目录为隐藏目录，所以需要在bash端使用 ls -al指令才能显示</span><br><span class="line"></span><br><span class="line">进入.nvm目录执行 	. nvm.sh  指令</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将以下内容拷贝到 <del>/.bash_profile(linux系统的文件名可能为</del>/.bashrc, ~/.profile, 或 ~/.zshrc), 具体操作步骤为 vi ~/.bash_profile</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export NVM_DIR=&quot;$HOME/gitRes/.nvm&quot;</span><br><span class="line">[ -s &quot;$NVM_DIR/nvm.sh&quot; ] &amp;&amp; \. &quot;$NVM_DIR/nvm.sh&quot;  # This loads nvm</span><br><span class="line">[ -s &quot;$NVM_DIR/bash_completion&quot; ] &amp;&amp; \. &quot;$NVM_DIR/bash_completion&quot;  # This loads nvm bash_completion</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>执行以下语句，使改动内容生效</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">. ~/.bash_profile</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>此时vnm工具安装完成， 需要进一步安装node版本，这里本人安装的是10版本<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvm install 10</span><br></pre></td></tr></table></figure>
+此外，还有以下常用指令<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nvm uninstall 10  ## 删除版本10的node</span><br><span class="line">nvm list   ## 显示安装的node 版本</span><br><span class="line">nvm use 8  ## 使用node 8 版本</span><br></pre></td></tr></table></figure>
+此时 Node环境已安装完成</li>
+</ul>
+<h3 id="1-3-安装Hexo-工具"><a href="#1-3-安装Hexo-工具" class="headerlink" title="1.3 安装Hexo 工具"></a>1.3 安装Hexo 工具</h3><p>Hexo是一个建站工具，可以帮助我们快速生成基本的博客文件，安装它需要在控制台下使用如下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br></pre></td></tr></table></figure>
+<p>如果在1.2 中使用安装包安装的话，此时会提示报错</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">npm WARN checkPermissions Missing write access to /usr/local/lib/node_modules/hexo</span><br><span class="line">npm WARN checkPermissions Missing write access to /usr/local/lib/node_modules</span><br><span class="line">/usr/local/lib</span><br><span class="line">└── hexo@3.2.0 </span><br><span class="line"></span><br><span class="line">npm ERR! Darwin 15.2.0</span><br><span class="line">npm ERR! argv &quot;/usr/local/bin/node&quot; &quot;/usr/local/bin/npm&quot; &quot;install&quot; &quot;-g&quot; &quot;hexo&quot;</span><br><span class="line">npm ERR! node v5.9.0</span><br><span class="line">npm ERR! npm  v3.7.3</span><br><span class="line">npm ERR! path /usr/local/lib/node_modules/hexo</span><br><span class="line">npm ERR! code EACCES</span><br><span class="line">npm ERR! errno -13</span><br><span class="line">npm ERR! syscall access</span><br><span class="line"></span><br><span class="line">npm ERR! Error: EACCES: permission denied, access &apos;/usr/local/lib/node_modules/hexo&apos;</span><br><span class="line">npm ERR!     at Error (native)</span><br><span class="line">npm ERR!  &#123; [Error: EACCES: permission denied, access &apos;/usr/local/lib/node_modules/hexo&apos;]</span><br><span class="line">npm ERR!   errno: -13,</span><br><span class="line">npm ERR!   code: &apos;EACCES&apos;,</span><br><span class="line">npm ERR!   syscall: &apos;access&apos;,</span><br><span class="line">npm ERR!   path: &apos;/usr/local/lib/node_modules/hexo&apos; &#125;</span><br><span class="line">npm ERR! </span><br><span class="line">npm ERR! Please try running this command again as root/Administrator.</span><br></pre></td></tr></table></figure>
+<p>这是因为 node_module 无权限导致，一些博客建议在指令前加上 sudo 然后执行，但是官方不推荐使用该方法 <a href="https://docs.npmjs.com/resolving-eacces-permissions-errors-when-installing-packages-globally，" target="_blank" rel="noopener">https://docs.npmjs.com/resolving-eacces-permissions-errors-when-installing-packages-globally，</a> 建议使用nvm 安装，并且安装nvm不需要卸载已经安装的npm或node.js。</p>
+<h3 id="1-4-注册GitHub账号"><a href="#1-4-注册GitHub账号" class="headerlink" title="1.4 注册GitHub账号"></a>1.4 注册GitHub账号</h3><p>注册地址：<a href="https://github.com" target="_blank" rel="noopener">https://github.com</a></p>
+<h2 id="二-开始搭建博客"><a href="#二-开始搭建博客" class="headerlink" title="二 开始搭建博客"></a>二 开始搭建博客</h2><h3 id="2-1-开启GitHub-Pages服务"><a href="#2-1-开启GitHub-Pages服务" class="headerlink" title="2.1 开启GitHub Pages服务"></a>2.1 开启GitHub Pages服务</h3><p><img src="/ty-blog.github.io/ty-blog.github.io/2019/11/21/%E4%BD%BF%E7%94%A8GitHub-Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/githubpages.png" alt="创建仓库"></p>
+<p>点击Create Repository之后，随后选择Setting进入设置，找到Github Pages如下：<br><img src="/ty-blog.github.io/ty-blog.github.io/2019/11/21/%E4%BD%BF%E7%94%A8GitHub-Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/githubpages.png" alt="选择主题" title="选择主题"></p>
+<p>这里我们需要点击Choose a theme任意选择一个选择主题，然后界面会跳转到仓库，我们看到有两个文件：_config.yml  和 index.md</p>
+<p>此时若再查看setting，我们会看到开启GitHub Pages之后得到的域名如下：</p>
+<p>现在，我们就可以使用<a href="https://UserName.github.io/XXXX，" target="_blank" rel="noopener">https://UserName.github.io/XXXX，</a>  访问自己的博客网站了    </p>
+<h3 id="2-2-创建本地站点博客"><a href="#2-2-创建本地站点博客" class="headerlink" title="2.2 创建本地站点博客"></a>2.2 创建本地站点博客</h3><p>上述的步骤相当于我们使用Github page，创建了一个默认的博客页，并且得到了一个可外部访问的域名。但是我们的目的是创建自己个性化的博客网站，所以我们使用Hexo在本地先创建一个本地博客站点，优化后再把它部署到github上。接下来我们使用控制台命令在本地一个合适的位置创建博客站点文件夹如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init  myHexoBlog       //myHexoBlog是项目名</span><br></pre></td></tr></table></figure>
+<p><img src="/ty-blog.github.io/ty-blog.github.io/2019/11/21/%E4%BD%BF%E7%94%A8GitHub-Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/myhexo.png" alt><br>下面来测试本地博客站点，在本地博客根目录下使用控制台命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo g  //g是generetor的缩写，生成博客</span><br><span class="line"></span><br><span class="line">hexo s  //s是server的缩写，启动服务</span><br></pre></td></tr></table></figure>
+
+
+<p>此时打开浏览器，输入 <a href="http://localhost:4000/，" target="_blank" rel="noopener">http://localhost:4000/，</a> 我们将会看到Hexo自带默认主题显示的博客样式如下<br><img src="/ty-blog.github.io/ty-blog.github.io/2019/11/21/%E4%BD%BF%E7%94%A8GitHub-Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/hexo.png" alt="hexo默认主题" title="hexo"></p>
+<h3 id="2-3-同步GitHub"><a href="#2-3-同步GitHub" class="headerlink" title="2.3 同步GitHub"></a>2.3 同步GitHub</h3><p>在本地我们已经搭建了博客，但是还只能自己本地访问。若要别人也能看到，那就需要我们将其同步部署到GitHub上了。还记得我们之前准备的Github仓库吗，这里就要用到了。<br>首先找到我们的博客仓库，并拷贝仓库地址：（此处建议采用https网址，如果采用ssh地址，需要配置密钥，否则后续提交代码会报错）<br><img src="/ty-blog.github.io/ty-blog.github.io/2019/11/21/%E4%BD%BF%E7%94%A8GitHub-Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/cloneSSh.png" alt="仓库地址"></p>
+<p>然后修改本地博客目录的配置：<br>修改本地博客根目录下的_config.yml文件，修改deploy下的配置如下：</p>
+<p><img src="/ty-blog.github.io/ty-blog.github.io/2019/11/21/%E4%BD%BF%E7%94%A8GitHub-Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/%20config.png" alt></p>
+<p>最后执行控制台命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git —-save //安装部署插件</span><br><span class="line"></span><br><span class="line">hexo d //部署到github</span><br></pre></td></tr></table></figure>
+
+
+<p>配置密钥步骤如下：<br>1使用指令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -al ~/.ssh</span><br></pre></td></tr></table></figure>
+<p>2使用命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;github用户名&quot;，按三次回车</span><br></pre></td></tr></table></figure>
+<p>3查看生成的key</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
+<p>4 github上配置SSH key(这里也可以在  头像-settings-new SSH 里设置，只不过前者是当前仓库的ssh key，后者个人所有仓库的key)<br> <img src="/ty-blog.github.io/ty-blog.github.io/2019/11/21/%E4%BD%BF%E7%94%A8GitHub-Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/sshkey.png" alt="SSHkey"></p>
+<h2 id="三-发布博客"><a href="#三-发布博客" class="headerlink" title="三 发布博客"></a>三 发布博客</h2><p>在本地博客文件夹根目录输入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hexo new &quot;XXXX&quot;</span><br><span class="line"></span><br><span class="line">hexo g   //生成网页</span><br><span class="line"></span><br><span class="line">hexo d  //部署到远端(github)</span><br></pre></td></tr></table></figure>
+<p>查看我们本地的博客文件夹: myHexoBlog-&gt;source-&gt;_posts，将会看到我们创建一个条新的博客文章.</p>
+<p>现在打开我们的博客网站：<a href="http://UserName.github.io" target="_blank" rel="noopener">http://UserName.github.io</a>, 会看到相应内容</p>
+<h2 id="四-更换主题"><a href="#四-更换主题" class="headerlink" title="四 更换主题"></a>四 更换主题</h2><p>为了让博客看起来更美观一些，我们可以为其更换主题，这里以使用github上的next主题为例：</p>
+<h3 id="4-1-创建next文件夹"><a href="#4-1-创建next文件夹" class="headerlink" title="4.1 创建next文件夹"></a>4.1 创建next文件夹</h3><p>切换到本地博客根目录下，在主题文件thems下创建一个新文件夹next存放即将下载的next主题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir themes/next</span><br></pre></td></tr></table></figure>
+<h3 id="4-2-下载主题Next"><a href="#4-2-下载主题Next" class="headerlink" title="4.2 下载主题Next"></a>4.2 下载主题Next</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -s [https://api.github.com/repos/iissnan/hexo-theme-next/releases/latest](https://api.github.com/repos/iissnan/hexo-theme-next/releases/latest) | grep tarball_url | cut -d &apos;&quot;&apos; -f 4 | wget -i - -O- | tar -zx -C themes/next --strip-components=1</span><br></pre></td></tr></table></figure>
+<p>此步骤可参考：<a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">https://github.com/iissnan/hexo-theme-next</a></p>
+<p>下载成之后我们会看到next的主题已经存在thems里了</p>
+<h3 id="4-3-修改博客配置文件，更换主题配置"><a href="#4-3-修改博客配置文件，更换主题配置" class="headerlink" title="4.3 修改博客配置文件，更换主题配置"></a>4.3 修改博客配置文件，更换主题配置</h3><p>修改博客根目录(不是next主题)下的_config.yml文件，搜索theme字段，并将其值修改为next。</p>
+<p>然后在控制台下输入如下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hexo clean  //清理缓存</span><br><span class="line"></span><br><span class="line">hexo g    //重新生成博客代码</span><br><span class="line"></span><br><span class="line">hexo d   //部署到远端</span><br></pre></td></tr></table></figure>
+<p>再次打开博客页面，将会看到更换主题后的博客网页发生变化。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/ty-blog.github.io/tags/Hexo/" rel="tag"># Hexo</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/ty-blog.github.io/2019/11/19/hello-world/" rel="next" title="Hello World">
+                  <i class="fa fa-chevron-left"></i> Hello World
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/ty-blog.github.io/2019/11/27/Leetcode%E7%BB%83%E4%B9%A0-1-Two-Sum/" rel="prev" title="Leetcode练习 1 Two Sum">
+                  Leetcode练习 1 Two Sum <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用GitHub-Hexo搭建个人博客"><span class="nav-number">1.</span> <span class="nav-text">使用GitHub+Hexo搭建个人博客</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一-环境准备"><span class="nav-number">1.1.</span> <span class="nav-text">一 环境准备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-安装git工具"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 安装git工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-搭建Node-js环境"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2 搭建Node.js环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-安装Hexo-工具"><span class="nav-number">1.1.3.</span> <span class="nav-text">1.3 安装Hexo 工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-注册GitHub账号"><span class="nav-number">1.1.4.</span> <span class="nav-text">1.4 注册GitHub账号</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二-开始搭建博客"><span class="nav-number">1.2.</span> <span class="nav-text">二 开始搭建博客</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-开启GitHub-Pages服务"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 开启GitHub Pages服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-创建本地站点博客"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 创建本地站点博客</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-同步GitHub"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3 同步GitHub</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三-发布博客"><span class="nav-number">1.3.</span> <span class="nav-text">三 发布博客</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四-更换主题"><span class="nav-number">1.4.</span> <span class="nav-text">四 更换主题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-创建next文件夹"><span class="nav-number">1.4.1.</span> <span class="nav-text">4.1 创建next文件夹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-下载主题Next"><span class="nav-number">1.4.2.</span> <span class="nav-text">4.2 下载主题Next</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-修改博客配置文件，更换主题配置"><span class="nav-number">1.4.3.</span> <span class="nav-text">4.3 修改博客配置文件，更换主题配置</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/ty-blog.github.io/archives/">
+        
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/ty-blog.github.io/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.5.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/ty-blog.github.io/lib/anime.min.js"></script>
+  <script src="/ty-blog.github.io/lib/velocity/velocity.min.js"></script>
+  <script src="/ty-blog.github.io/lib/velocity/velocity.ui.min.js"></script>
+<script src="/ty-blog.github.io/js/utils.js"></script><script src="/ty-blog.github.io/js/motion.js"></script>
+<script src="/ty-blog.github.io/js/schemes/muse.js"></script>
+<script src="/ty-blog.github.io/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
