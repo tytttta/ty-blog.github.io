@@ -46,12 +46,15 @@
   };
 </script>
 
-  <meta property="og:type" content="article">
+  <meta name="description" content="HashMap源码 12345678910111213static class Node&amp;lt;K,V&amp;gt; implements Map.Entry&amp;lt;K,V&amp;gt; &amp;#123;        final int hash;        final K key;        V value;        Node&amp;lt;K,V&amp;gt; next;        Node(int h">
+<meta name="keywords" content="HashMap">
+<meta property="og:type" content="article">
 <meta property="og:title" content="HashMap原理">
 <meta property="og:url" content="https:&#x2F;&#x2F;tytttta.github.io&#x2F;ty-blog.github.io&#x2F;2021&#x2F;03&#x2F;06&#x2F;HashMap%E5%8E%9F%E7%90%86&#x2F;index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="HashMap源码 12345678910111213static class Node&amp;lt;K,V&amp;gt; implements Map.Entry&amp;lt;K,V&amp;gt; &amp;#123;        final int hash;        final K key;        V value;        Node&amp;lt;K,V&amp;gt; next;        Node(int h">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2021-03-06T05:39:59.331Z">
+<meta property="og:updated_time" content="2021-03-06T09:05:13.354Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://tytttta.github.io/ty-blog.github.io/2021/03/06/HashMap%E5%8E%9F%E7%90%86/">
@@ -189,8 +192,9 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2021-03-06 13:39:59" itemprop="dateCreated datePublished" datetime="2021-03-06T13:39:59+08:00">2021-03-06</time>
+              <time title="Created: 2021-03-06 13:39:59 / Modified: 17:05:13" itemprop="dateCreated datePublished" datetime="2021-03-06T13:39:59+08:00">2021-03-06</time>
             </span>
 
           
@@ -204,7 +208,73 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <p>HashMap源码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; <span class="keyword">implements</span> <span class="title">Map</span>.<span class="title">Entry</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> hash;</span><br><span class="line">        <span class="keyword">final</span> K key;</span><br><span class="line">        V value;</span><br><span class="line">        Node&lt;K,V&gt; next;</span><br><span class="line"></span><br><span class="line">        Node(<span class="keyword">int</span> hash, K key, V value, Node&lt;K,V&gt; next) &#123;</span><br><span class="line">            <span class="keyword">this</span>.hash = hash;</span><br><span class="line">            <span class="keyword">this</span>.key = key;</span><br><span class="line">            <span class="keyword">this</span>.value = value;</span><br><span class="line">            <span class="keyword">this</span>.next = next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>底层实现是 数组+链表（红黑树）实现,  当调用put方法插入时：</p>
+<p>①.判断键值对数组table是否为空或为null，否则执行resize()进行扩容，扩容初始化大小为16；</p>
+<p>②.根据键值key计算hash值得到插入的数组索引i，如果table[i]==null，直接新建节点添加，转向⑥，如果table[i]不为空，转向③；</p>
+<p>③.判断table[i]的首个元素是否和key一样，如果相同直接覆盖value，否则转向④，这里的相同指的是hashCode以及equals；</p>
+<p>④.判断table[i] 是否为treeNode，即table[i] 是否是红黑树，如果是红黑树，则直接在树中插入键值对，否则转向⑤；</p>
+<p>⑤.遍历table[i]，判断链表长度是否大于8，大于8的话把链表转换为红黑树，在红黑树中执行插入操作，否则进行链表的插入操作；遍历过程中若发现key已经存在直接覆盖value即可；</p>
+<p>⑥.插入成功后，判断实际存在的键值对数量size是否超多了最大容量threshold，如果超过，进行扩容。</p>
+<p>举例：</p>
+<p>第一个键值对A进来，通过计算其key的hash得到的index=0。记做:Entry[0] = A。<br>第二个键值对B，通过计算其index也等于0， HashMap会将B.next =A,Entry[0] =B,<br>第三个键值对C，通过计算其index也等于0，那么C.next = B,Entry[0] = C</p>
+<p><strong>get取值的方法，过程如下:</strong></p>
+<p>①.指定key 通过hash函数得到key的hash值,hash值的计算是通过hashCode()的高16位异或低16位实现的 </p>
+<p>(key == null) ? 0 : (h = key.hashCode()) ^ (h &gt;&gt;&gt; 16);</p>
+<p>②.调用内部方法 getNode()，得到桶号;</p>
+<p>③.比较桶的内部元素是否与key相等，若都不相等，则没有找到。相等，则取出相等记录的value。</p>
+<p>④.如果得到 key 所在的桶的头结点恰好是红黑树节点，就调用红黑树节点的 getTreeNode() 方法，否则就遍历链表节点。getTreeNode 方法使通过调用树形节点的 find()方法进行查找。由于之前添加时已经保证这个树是有序的，因此查找时基本就是折半查找，效率很高。</p>
+<p>⑤.如果对比节点的哈希值和要查找的哈希值相等，就会判断 key 是否相等，相等就直接返回；不相等就从子树中递归查找。</p>
+<p><strong>如何重新调整HashMap的大小</strong></p>
+<p>“如果HashMap的大小超过了负载因子(load factor)定义的容量，怎么办？”<br>HashMap的扩容阈值（threshold = capacity* loadFactor 容量范围是16~2的30次方），就是通过它和size进行比较来判断是否需要扩容。默认的负载因子大小为0.75，也就是说，当一个map填满了75%的bucket时候，将会创建原来HashMap大小的两倍的bucket数组（jdk1.6，但不超过最大容量），来重新调整map的大小，并将原来的对象放入新的bucket数组中。这个过程叫作rehashing，因为它调用hash方法找到新的bucket位置。</p>
+<p><strong>初始容量16，负载因子0.75，扩载方法：容量*2</strong></p>
+<ul>
+<li><p>用LinkedList代替数组可以吗</p>
+<p>可以</p>
+</li>
+<li><p>既然是可以的，为什么不用反而用数组。</p>
+<p>因为⽤数组效率最⾼！ 在HashMap中，定位节点的位置是利⽤元素的key的哈希值对数组⻓度取模得到。此时，我们已得到节点的位置。显然数组的查 找效率⽐LinkedList⼤（底层是链表结构）。<br>那ArrayList，底层也是数组，查找也快啊，为啥不⽤ArrayList? 因为采⽤基本数组结构，扩容机制可以⾃⼰定义，HashMap中数组扩容刚好是2的次幂，在做取模运算的效率⾼。 ⽽ArrayList的扩容机制是1.5倍扩容。</p>
+</li>
+<li><p>知道jdk1.8中hashmap改了什么吗。</p>
+<ol>
+<li><p>由数组+链表的结构改为数组+链表+红⿊树。</p>
+</li>
+<li><p>优化了⾼位运算的hash算法：h^(h&gt;&gt;&gt;16)</p>
+</li>
+<li><p>扩容后，元素要么是在原位置，要么是在原位置再移动2次幂的位置，且链表顺序不变。<br>注意： 最后⼀条是重点，因为最后⼀条的变动，hashmap在1.8中，不会在出现死循环问题。</p>
+</li>
+</ol>
+</li>
+<li><p>说一下为什么会出现线程的不安全性</p>
+<p>HashMap 在jdk1.7中 使用 数组加链表的方式，并且在进行链表插入时候使用的是头结点插入的方法。<br>注 ：这里为什么使用 头插法的原因是我们若是在散列以后，判断得到值是一样的，使用头插法，不用每次进行遍历链表的长度。但是这样会有一个缺点，在进行扩容时候，会导致进入新数组时候出现倒序的情况，也会在多线程时候出现线程的不安全性。<br>但是对与 jdk1.8 而言，还是要进行阙值的判断，判断在什么时候进行红黑树和链表的转换。所以无论什么时候都要进行遍历，于是插入到尾部，防止出现扩容时候还会出现倒序情况。</p>
+<p>所以当在多线程的使用场景中，尽量使用线程安全的ConcurrentHashMap。至于Hashtable而言，使用效率太低。</p>
+<p>– 1.7中链表插入为头插法，当table容量达到阈值时，会发生resize，旧的节点的值会重新赋值到新的节点，此时如果是多线程并行操作，会发生死循环问题。</p>
+<p>1.在JDK1.7中，当并发执行扩容操作时会造成环形链和数据丢失的情况。</p>
+<p>2.在JDK1.8中，在并发执行put操作时会发生数据覆盖的情况。</p>
+</li>
+<li><p>为什么在解决hash冲突时候，不直接用红黑树，而是先用链表，再用红黑树。</p>
+<p>因为红⿊树需要进⾏左旋，右旋，变⾊这些操作来保持平衡，⽽单链表不需要。<br>当元素⼩于8个当时候，此时做查询操作，链表结构已经能保证查询性能。<br>当元素⼤于8个的时候，此时需要红⿊树来加快查 询速度，但是新增节点的效率变慢了。<br>因此，如果⼀开始就⽤红⿊树结构，元素太少，新增效率⼜⽐较慢，⽆疑这是浪费性能的。</p>
+</li>
+</ul>
+<ul>
+<li><p>当链表转为红黑树，什么时候退化为链表</p>
+<p>为6的时候退转为链表。中间有个差值7可以防⽌链表和树之间频繁的转换。<br>假设⼀下，如果设计成链表个数超过8则链表转 换成树结构，链表个数⼩于8则树结构转换成链表，<br>如果⼀个HashMap不停的插⼊、删除元素，链表个数在8左右徘徊，就会 频繁的发⽣树转链表、链表转树，效率会很低。</p>
+</li>
+<li><p>HashMap在并发环境下会有什么问题</p>
+<p>(1)多线程扩容，引起的死循环问题<br>(2)多线程put的时候可能导致元素丢失<br>(3)put⾮null元素后get出来的却是null</p>
+</li>
+<li><p>一般是如何解决的</p>
+<p>在之前使用hashtable。 在每一个函数前面都加上了synchronized 但是 效率太低 我们现在不常用了。</p>
+<p>使用 ConcurrentHashmap函数，对于这个函数而言 我们可以每几个元素共用一把锁。用于提高效率。</p>
+</li>
+</ul>
+<p><strong><em>一般用什么作为key值</em></strong></p>
+<p>⼀般⽤Integer、String这种不可变类当HashMap当key，⽽且String最为常⽤。<br>(1)因为字符串是不可变的，所以在它创建的时候hashcode就被缓存了，不需要重新计算。 这就使得字符串很适合作为Map中的键，字符串的处理速度要快过其它的键对象。 这就是HashMap中的键往往都使⽤字符串。<br>(2)因为获取对象的时候要⽤到equals()和hashCode()⽅法，那么键对象正确的重写这两个⽅法是⾮常重要的,这些类已 经很规范的覆写了hashCode()以及equals()⽅法。</p>
+<p><strong><em>用可变类当Hashmap1的Key会有什么问题</em></strong></p>
+<p>hashcode可能会发生变化，导致put进行的值，无法get出来。</p>
+
     </div>
 
     
@@ -212,6 +282,9 @@
     
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/ty-blog.github.io/tags/HashMap/" rel="tag"># HashMap</a>
+          </div>
 
         
 
@@ -225,6 +298,9 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
+                <a href="/ty-blog.github.io/2021/03/06/HashMap-HashTable-ConcurrentHashMap%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/" rel="prev" title="HashMap,HashTable,ConcurrentHashMap区别与联系">
+                  HashMap,HashTable,ConcurrentHashMap区别与联系 <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
       </footer>
@@ -276,12 +352,12 @@
       <div class="site-state-item site-state-posts">
           <a href="/ty-blog.github.io/archives/">
         
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
