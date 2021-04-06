@@ -46,12 +46,14 @@
   };
 </script>
 
-  <meta property="og:type" content="article">
+  <meta name="description" content="3.无重复字符的最长子串给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。 示例 1: 123输入: s = &amp;quot;abcabcbb&amp;quot;输出: 3 解释: 因为无重复字符的最长子串是 &amp;quot;abc&amp;quot;，所以其长度为 3。  示例 2: 123输入: s = &amp;quot;bbbbb&amp;quot;输出: 1解释: 因为无重复字符的最长子串是 &amp;quot;b&amp;qu">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Leetcode练习-3-无重复字符的最长子串">
 <meta property="og:url" content="https:&#x2F;&#x2F;tytttta.github.io&#x2F;ty-blog.github.io&#x2F;2021&#x2F;02&#x2F;05&#x2F;Leetcode%E7%BB%83%E4%B9%A0-3-%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2&#x2F;index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="3.无重复字符的最长子串给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。 示例 1: 123输入: s = &amp;quot;abcabcbb&amp;quot;输出: 3 解释: 因为无重复字符的最长子串是 &amp;quot;abc&amp;quot;，所以其长度为 3。  示例 2: 123输入: s = &amp;quot;bbbbb&amp;quot;输出: 1解释: 因为无重复字符的最长子串是 &amp;quot;b&amp;qu">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2021-02-04T16:33:44.866Z">
+<meta property="og:updated_time" content="2021-04-06T15:38:05.434Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://tytttta.github.io/ty-blog.github.io/2021/02/05/Leetcode%E7%BB%83%E4%B9%A0-3-%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2/">
@@ -192,6 +194,13 @@
 
               <time title="Created: 2021-02-05 00:33:44" itemprop="dateCreated datePublished" datetime="2021-02-05T00:33:44+08:00">2021-02-05</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-04-06 23:38:05" itemprop="dateModified" datetime="2021-04-06T23:38:05+08:00">2021-04-06</time>
+              </span>
 
           
 
@@ -204,7 +213,62 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <h1 id="3-无重复字符的最长子串"><a href="#3-无重复字符的最长子串" class="headerlink" title="3.无重复字符的最长子串"></a>3.无重复字符的最长子串</h1><p>给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。</p>
+<p><strong>示例 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: s = &quot;abcabcbb&quot;</span><br><span class="line">输出: 3 </span><br><span class="line">解释: 因为无重复字符的最长子串是 &quot;abc&quot;，所以其长度为 3。</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: s = &quot;bbbbb&quot;</span><br><span class="line">输出: 1</span><br><span class="line">解释: 因为无重复字符的最长子串是 &quot;b&quot;，所以其长度为 1。</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 3:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入: s = &quot;pwwkew&quot;</span><br><span class="line">输出: 3</span><br><span class="line">解释: 因为无重复字符的最长子串是 &quot;wke&quot;，所以其长度为 3。</span><br><span class="line">     请注意，你的答案必须是 子串 的长度，&quot;pwke&quot; 是一个子序列，不是子串。</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 4:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: s = &quot;&quot;</span><br><span class="line">输出: 0</span><br></pre></td></tr></table></figure>
+
+<p><strong>提示：</strong></p>
+<p>0 &lt;= s.length &lt;= 5 * 104<br>s 由英文字母、数字、符号和空格组成</p>
+<p>方法1:</p>
+<p>分析： 使用两层循环，每次获取最长字串长度，直到取到最大长度。时间复杂度O(n*n)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">class Solution &#123;</span><br><span class="line">    public int lengthOfLongestSubstring(String s) &#123;</span><br><span class="line">        int maxLen = 0;</span><br><span class="line">        for(int i=0; i&lt;s.length();i++)&#123;</span><br><span class="line">            StringBuilder stringBuilder = new StringBuilder();</span><br><span class="line">            stringBuilder.append(s.charAt(i));</span><br><span class="line">            for(int j= i+1;j&lt;s.length();j++) &#123;</span><br><span class="line">                if (stringBuilder.indexOf(String.valueOf(s.charAt(j))) != -1) &#123;</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">                stringBuilder.append(s.charAt(j));</span><br><span class="line">            &#125;</span><br><span class="line">            if(maxLen&lt;stringBuilder.length())&#123;</span><br><span class="line">                maxLen = stringBuilder.length();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return maxLen;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>时间复杂度较高</li>
+</ul>
+<p>方法2: 双指针，活动窗口</p>
+<p>分析： 设置两个指针，分别指向最大字串的启示和结束位置，使用map存储每个字符的位置+1，遍历每个字符，如果map中包含这个字符，起始位置加1。 时间复杂度O(n)。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> maxLen = <span class="number">0</span>;</span><br><span class="line">        Map&lt;Character, Integer&gt; strMap = <span class="keyword">new</span> HashMap&lt;&gt;(s.length());</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> start =<span class="number">0</span>, end=<span class="number">0</span>;end&lt;s.length();end++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(strMap.containsKey(s.charAt(end)))&#123;</span><br><span class="line">                start = Math.max(strMap.get(s.charAt(end)), start);<span class="comment">//防止出现start已经移到后面，但是新的字符和start前的字符相同</span></span><br><span class="line">            &#125;</span><br><span class="line">            maxLen = Math.max(maxLen, end -start+<span class="number">1</span>);</span><br><span class="line">            strMap.put(s.charAt(end), end+<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> maxLen;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<table>
+<thead>
+<tr>
+<th align="left">方法</th>
+<th align="left">提交结果</th>
+<th align="left">运行时间</th>
+<th align="left">内存消耗</th>
+<th align="left">语言</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">方法2</td>
+<td align="left"><a href="https://leetcode-cn.com/submissions/detail/164564121/" target="_blank" rel="noopener">通过</a></td>
+<td align="left">7 ms</td>
+<td align="left">38.3 MB</td>
+<td align="left">Java</td>
+</tr>
+<tr>
+<td align="left">方法1</td>
+<td align="left"><a href="https://leetcode-cn.com/submissions/detail/164523377/" target="_blank" rel="noopener">通过</a></td>
+<td align="left">261 ms</td>
+<td align="left">38.9 MB</td>
+<td align="left">Java</td>
+</tr>
+</tbody></table>
+
     </div>
 
     
@@ -225,6 +289,9 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
+                <a href="/ty-blog.github.io/2021/02/11/%E9%98%BF%E9%87%8C%E4%B8%80%E9%9D%A2/" rel="prev" title="阿里一面">
+                  阿里一面 <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
       </footer>
@@ -263,6 +330,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#3-无重复字符的最长子串"><span class="nav-number">1.</span> <span class="nav-text">3.无重复字符的最长子串</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -276,12 +344,12 @@
       <div class="site-state-item site-state-posts">
           <a href="/ty-blog.github.io/archives/">
         
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>

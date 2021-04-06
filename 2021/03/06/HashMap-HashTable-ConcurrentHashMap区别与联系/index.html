@@ -46,12 +46,15 @@
   };
 </script>
 
-  <meta property="og:type" content="article">
+  <meta name="description" content="HashMap 和 HashTable 区别 1、继承的父类不同 HashMap继承自AbstractMap类。但二者都实现了Map接口。Hashtable继承自Dictionary类，Dictionary类是一个已经被废弃的类（见其源码中的注释）。父类都被废弃，自然而然也没人用它的子类Hashtable了。 2、HashMap线程不安全,HashTable线程安全 3.包含的contains方法">
+<meta name="keywords" content="HashMap, HashTable, ConcurrentHashMap">
+<meta property="og:type" content="article">
 <meta property="og:title" content="HashMap,HashTable,ConcurrentHashMap区别与联系">
 <meta property="og:url" content="https:&#x2F;&#x2F;tytttta.github.io&#x2F;ty-blog.github.io&#x2F;2021&#x2F;03&#x2F;06&#x2F;HashMap-HashTable-ConcurrentHashMap%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB&#x2F;index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="HashMap 和 HashTable 区别 1、继承的父类不同 HashMap继承自AbstractMap类。但二者都实现了Map接口。Hashtable继承自Dictionary类，Dictionary类是一个已经被废弃的类（见其源码中的注释）。父类都被废弃，自然而然也没人用它的子类Hashtable了。 2、HashMap线程不安全,HashTable线程安全 3.包含的contains方法">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2021-03-06T08:04:47.647Z">
+<meta property="og:updated_time" content="2021-04-06T15:38:46.816Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://tytttta.github.io/ty-blog.github.io/2021/03/06/HashMap-HashTable-ConcurrentHashMap%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/">
@@ -192,6 +195,13 @@
 
               <time title="Created: 2021-03-06 16:04:47" itemprop="dateCreated datePublished" datetime="2021-03-06T16:04:47+08:00">2021-03-06</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-04-06 23:38:46" itemprop="dateModified" datetime="2021-04-06T23:38:46+08:00">2021-04-06</time>
+              </span>
 
           
 
@@ -204,7 +214,38 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <p>HashMap 和 HashTable 区别</p>
+<p>1、继承的父类不同</p>
+<p>HashMap继承自AbstractMap类。但二者都实现了Map接口。<br>Hashtable继承自Dictionary类，Dictionary类是一个已经被废弃的类（见其源码中的注释）。父类都被废弃，自然而然也没人用它的子类Hashtable了。</p>
+<p>2、HashMap线程不安全,HashTable线程安全</p>
+<p>3.包含的contains方法不同</p>
+<p>HashMap是没有contains方法的，而包括containsValue和containsKey方法；hashtable则保留了contains方法，效果同containsValue,还包括containsValue和containsKey方法。</p>
+<p>4.是否允许null值</p>
+<p>Hashmap是允许key和value为null值的，用containsValue和containsKey方法判断是否包含对应键值对；HashTable键值对都不能为空，否则包空指针异常。</p>
+<p>5.计算hash值方式不同</p>
+<p>为了得到元素的位置，首先需要根据元素的 KEY计算出一个hash值，然后再用这个hash值来计算得到最终的位置。</p>
+<p>①：HashMap有个hash方法重新计算了key的hash值,因为hash冲突变高，所以通过一种方法重算hash值的方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">hash</span><span class="params">(Object key)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> h;</span><br><span class="line">        <span class="keyword">return</span> (key == <span class="keyword">null</span>) ? <span class="number">0</span> : (h = key.hashCode()) ^ (h &gt;&gt;&gt; <span class="number">16</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意这里计算hash值，先调用hashCode方法计算出来一个hash值，再将hash与右移16位后相<strong>异或</strong>，从而得到<strong>新的hash值</strong>。</p>
+<p>②：Hashtable通过计算key的hashCode()来得到hash值就为最终hash值。</p>
+<p>6.扩容方式不同（容量不够）</p>
+<p>当容量不足时要进行resize方法，而resize的两个步骤：<br>①扩容；<br>②rehash:这里HashMap和HashTable都会会重新计算hash值而这里的计算方式就不同了（看5）；<br>HashMap 哈希扩容必须要求为原容量的2倍，而且一定是2的幂次倍扩容结果，而且每次扩容时，原来数组中的元素依次重新计算存放位置，并重新插入；<br>而Hashtable扩容为原容量2倍加1。</p>
+<p>ConcurrentHashMap, HashMap :</p>
+<p>HashMap是线程不安全的， ConcurrentHashMap 是线程安全的。</p>
+<p>ConcurrentHashMap原理：</p>
+<p>1.7中使用segment锁机制。每个Segment下存储的变量为HashEntry, 和HashMap类似。</p>
+<p>原理上来说：ConcurrentHashMap 采用了分段锁技术，其中 Segment 继承于 ReentrantLock。不会像 HashTable 那样不管是 put 还是 get 操作都需要做同步处理，理论上 ConcurrentHashMap 支持 CurrencyLevel (Segment 数组数量)的线程并发。每当一个线程占用锁访问一个 Segment 时，不会影响到其他的 Segment。</p>
+<p>1.8中抛弃了原有的 Segment 分段锁，而采用了 <code>CAS + synchronized</code> 来保证并发安全性：</p>
+<ol>
+<li>根据 key 计算出 hashcode 。</li>
+<li>判断是否需要进行初始化。</li>
+<li><code>f</code> 即为当前 key 定位出的 Node，如果为空表示当前位置可以写入数据，利用 CAS 尝试写入，失败则自旋保证成功。</li>
+<li>如果当前位置的 <code>hashcode == MOVED == -1</code>,则需要进行扩容。</li>
+<li>如果都不满足，则利用 synchronized 锁写入数据。</li>
+<li>如果数量大于 <code>TREEIFY_THRESHOLD</code> 则要转换为红黑树。</li>
+</ol>
+
     </div>
 
     
@@ -212,6 +253,9 @@
     
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/ty-blog.github.io/tags/HashMap-HashTable-ConcurrentHashMap/" rel="tag"># HashMap, HashTable, ConcurrentHashMap</a>
+          </div>
 
         
 
@@ -276,12 +320,12 @@
       <div class="site-state-item site-state-posts">
           <a href="/ty-blog.github.io/archives/">
         
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
